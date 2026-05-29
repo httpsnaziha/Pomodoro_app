@@ -6,21 +6,23 @@ window=tk.Tk()
 window.title("Pomodoro App")
 window.geometry("600x400")
 window.resizable(False,False)
-#colors
-burgundy="#8d2645"
-green="#c4d6b0"
+
+#--------------------------icon----------------
+window.iconbitmap("favicon.ico")
+
+#--------------------------colors----------------------
 move="#622F63"
-Pink="#fff8f3"
-bg_color="#f9f6ee"
+pink="#f9f6ee"
+
 #---------background---------
 bg = ImageTk.PhotoImage(Image.open("bg_pomo.png").resize((600,400)))
 bg_label = tk.Label(window, image=bg)
 bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 
-time_label=tk.Label(window,text="25:00",font=("arial",90),fg=move,bg=bg_color)
+time_label=tk.Label(window,text="25:00",font=("arial",90),fg=move,bg=pink)
 time_label.pack(pady=100,padx=20)
-window.configure(bg = bg_color)
+window.configure(bg = pink)
 
 def countdown(seconds): 
     while seconds >= 0:
@@ -49,17 +51,17 @@ def long_break():
     if time_label.cget("text")=="00:00":
         start()
 #---------start button---------
-start_btn=tk.Button(window,text="     ▶︎",font=("arial",30),bg=move, fg=Pink,command=lambda:start())
+start_btn=tk.Button(window,text="     ▶︎",font=("arial",30),bg=move, fg=pink,command=lambda:start())
 start_btn.pack(pady=5)
 start_btn.place(relx=0.36, rely=0.65)
 
 #---------short break---------
-break_btn=tk.Button(window,text="short break",font=("arial",15),bg=move, fg=Pink,command=lambda:short_break())
+break_btn=tk.Button(window,text="short break",font=("arial",15),bg=move, fg=pink,command=lambda:short_break())
 break_btn.pack(pady=10,side="left")
 break_btn.place(relx=0.29, rely=0.15)
 
 #---------long break---------
-break_btn=tk.Button(window,text="long break",font=("arial",15),bg=move, fg=Pink,command=lambda:long_break())
+break_btn=tk.Button(window,text="long break",font=("arial",15),bg=move, fg=pink,command=lambda:long_break())
 break_btn.pack(pady=10,side="left")
 break_btn.place(relx=0.53, rely=0.15)
 
