@@ -5,7 +5,7 @@ a = Analysis(
     ['pommedoro_app.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('bg_pomo.png', '.'), ('favicon.ico', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

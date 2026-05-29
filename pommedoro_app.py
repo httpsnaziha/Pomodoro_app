@@ -1,68 +1,75 @@
-import tkinter as tk
 import time
+import tkinter as tk
 from PIL import Image, ImageTk
+import sys
+import os
 
-window=tk.Tk()
-window.title("Pomodoro App")
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.dirname(__file__), relative_path)
+
+window = tk.Tk()
+window.title("Pommedoro >⩊<.ᐟ")
 window.geometry("600x400")
-window.resizable(False,False)
+window.resizable(False, False)
 
 #--------------------------icon----------------
-window.iconbitmap("favicon.ico")
+window.iconbitmap(resource_path("favicon.ico"))  # ✅ fixed
 
 #--------------------------colors----------------------
-move="#622F63"
-pink="#f9f6ee"
+move = "#622F63"
+pink = "#f9f6ee"
 
 #---------background---------
-bg = ImageTk.PhotoImage(Image.open("bg_pomo.png").resize((600,400)))
+bg = ImageTk.PhotoImage(Image.open(resource_path("bg_pomo.png")).resize((600, 400)))
 bg_label = tk.Label(window, image=bg)
 bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
+time_label = tk.Label(window, text="25:00", font=("arial", 90), fg=move, bg=pink)
+time_label.pack(pady=100, padx=20)
+window.configure(bg=pink)
 
-time_label=tk.Label(window,text="25:00",font=("arial",90),fg=move,bg=pink)
-time_label.pack(pady=100,padx=20)
-window.configure(bg = pink)
-
-def countdown(seconds): 
+def countdown(seconds):
     while seconds >= 0:
         min = seconds // 60
         sec = seconds % 60
         time_label.config(text=f"{min:02d}:{sec:02d}")
         window.update()
-        time.sleep(1)   
+        time.sleep(1)
         seconds -= 1
 
 def start():
     window.bell()
-    countdown(25*60)
-    if time_label.cget("text")=="00:00":
+    countdown(25 * 60)
+    if time_label.cget("text") == "00:00":
         short_break()
-    
+
 def short_break():
     window.bell()
-    countdown(5*60)
-    if time_label.cget("text")=="00:00":
+    countdown(5 * 60)
+    if time_label.cget("text") == "00:00":
         start()
-    
+
 def long_break():
     window.bell()
-    countdown(15*60)
-    if time_label.cget("text")=="00:00":
+    countdown(15 * 60)
+    if time_label.cget("text") == "00:00":
         start()
+
 #---------start button---------
-start_btn=tk.Button(window,text="     ▶︎",font=("arial",30),bg=move, fg=pink,command=lambda:start())
+start_btn = tk.Button(window, text="     ▶︎", font=("arial", 30), bg=move, fg=pink, command=lambda: start())
 start_btn.pack(pady=5)
 start_btn.place(relx=0.36, rely=0.65)
 
 #---------short break---------
-break_btn=tk.Button(window,text="short break",font=("arial",15),bg=move, fg=pink,command=lambda:short_break())
-break_btn.pack(pady=10,side="left")
+break_btn = tk.Button(window, text="short break", font=("arial", 15), bg=move, fg=pink, command=lambda: short_break())
+break_btn.pack(pady=10, side="left")
 break_btn.place(relx=0.29, rely=0.15)
 
 #---------long break---------
-break_btn=tk.Button(window,text="long break",font=("arial",15),bg=move, fg=pink,command=lambda:long_break())
-break_btn.pack(pady=10,side="left")
+break_btn = tk.Button(window, text="long break", font=("arial", 15), bg=move, fg=pink, command=lambda: long_break())
+break_btn.pack(pady=10, side="left")
 break_btn.place(relx=0.53, rely=0.15)
 
 window.mainloop()
